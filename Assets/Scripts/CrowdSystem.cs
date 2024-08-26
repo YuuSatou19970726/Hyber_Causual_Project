@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CrowdSystem : MonoBehaviour
 {
-    [Header("Elments")]
+    [Header("Elements")]
+    [SerializeField] private Transform runnersParent;
+
+    [Header("Setting")]
     [SerializeField] private float radius;
     [SerializeField] private float angel;
 
@@ -22,10 +25,10 @@ public class CrowdSystem : MonoBehaviour
 
     private void PlaceRunner()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < runnersParent.childCount; i++)
         {
             Vector3 childLocalPosition = PlayerRunnerLocalPositions(i);
-            transform.GetChild(i).localPosition = childLocalPosition;
+            runnersParent.GetChild(i).localPosition = childLocalPosition;
         }
     }
 
