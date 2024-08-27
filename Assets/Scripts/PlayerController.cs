@@ -6,10 +6,18 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Setting")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private int roadWidth;
     [Header("Control")]
     [SerializeField] private float slidSpeed;
     private Vector3 clickScreenPosition;
     private Vector3 clickPlayerPosition;
+    private CrowdSystem crowdSystem;
+
+
+    void Awake()
+    {
+        crowdSystem = GetComponent<CrowdSystem>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
             Vector3 position = transform.position;
             position.x = clickPlayerPosition.x + xScreenDifference;
+            position.x = Mathf.Clamp(position.x, -roadWidth / 2 + crowdSystem.GetCrowdRadius(), roadWidth / 2 + crowdSystem.GetCrowdRadius());
+
             transform.position = position;
 
             // transform.position = clickPlayerPosition + Vector3.right * xScreenDifference;
