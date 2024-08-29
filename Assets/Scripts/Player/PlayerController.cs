@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     [Header("Setting")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private int roadWidth;
+    private bool canMove;
+    private PlayerAnimator playerAnimator;
+
     [Header("Control")]
     [SerializeField] private float slidSpeed;
     private Vector3 clickScreenPosition;
@@ -17,19 +20,43 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         crowdSystem = GetComponent<CrowdSystem>();
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        GameManager.onGameStateChanged += GameStateChangeCallback;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveSpeedForward();
-        ManageControl();
+        if (canMove)
+        {
+            MoveSpeedForward();
+            ManageControl();
+        }
+    }
+
+    private void GameStateChangeCallback(GameState gameState)
+    {
+        if (gameState == GameState.Game)
+            StartMoving();
+        else
+            StopMoving();
+    }
+
+    private void StartMoving()
+    {
+        canMove = true;
+        playerAnimator.Run();
+    }
+
+    private void StopMoving()
+    {
+        canMove = false;
+        playerAnimator.Idle();
     }
 
     private void MoveSpeedForward()
