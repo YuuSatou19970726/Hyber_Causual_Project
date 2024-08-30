@@ -7,15 +7,15 @@ public class CrowdSystem : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private Transform runnersParent;
     [SerializeField] private GameObject runnerPrefab;
+    private PlayerAnimator playerAnimator;
 
     [Header("Setting")]
     [SerializeField] private float radius;
     [SerializeField] private float angel;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     // Update is called once per frame
@@ -71,6 +71,8 @@ public class CrowdSystem : MonoBehaviour
     {
         for (int i = 0; i < _amount; i++)
             Instantiate(runnerPrefab, runnersParent);
+
+        playerAnimator.Run();
     }
 
     private void RemoveRunner(int _amount)

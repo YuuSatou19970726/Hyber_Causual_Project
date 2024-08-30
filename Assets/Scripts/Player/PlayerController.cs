@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("Setting")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private int roadWidth;
@@ -19,6 +21,11 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        if (instance != null)
+            Destroy(gameObject);
+        else
+            instance = this;
+
         crowdSystem = GetComponent<CrowdSystem>();
         playerAnimator = GetComponent<PlayerAnimator>();
     }
@@ -27,6 +34,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameManager.onGameStateChanged += GameStateChangeCallback;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.onGameStateChanged -= GameStateChangeCallback;
     }
 
     // Update is called once per frame
