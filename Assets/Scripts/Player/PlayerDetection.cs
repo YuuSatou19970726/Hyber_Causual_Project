@@ -39,7 +39,7 @@ public class PlayerDetection : MonoBehaviour
                 doors.DisableDoorCollider();
                 crowdSystem.ApplyBonus(bonusType, bonusAmounnt);
             }
-            else if (detectedColliders[i].CompareTag("Finish"))
+            else if (detectedColliders[i].CompareTag(Tags.FINISH))
             {
                 Debug.Log("Hit finish line");
                 PlayerPrefs.SetInt(PlayerPrefsTag.LEVEL, PlayerPrefs.GetInt(PlayerPrefsTag.LEVEL) + 1);

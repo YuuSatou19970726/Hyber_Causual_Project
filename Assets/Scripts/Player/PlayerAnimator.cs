@@ -13,7 +13,7 @@ public class PlayerAnimator : MonoBehaviour
         {
             Transform runner = runnerParent.GetChild(i);
             Animator runnerAnimator = runner.GetComponent<Animator>();
-            runnerAnimator.Play("Run");
+            runnerAnimator.Play(AnimationTags.RUN);
         }
     }
 
@@ -23,7 +23,7 @@ public class PlayerAnimator : MonoBehaviour
         {
             Transform runner = runnerParent.GetChild(i);
             Animator runnerAnimator = runner.GetComponent<Animator>();
-            runnerAnimator.Play("Idle");
+            runnerAnimator.Play(AnimationTags.IDLE);
         }
     }
 }
