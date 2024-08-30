@@ -39,11 +39,12 @@ public class PlayerDetection : MonoBehaviour
                 doors.DisableDoorCollider();
                 crowdSystem.ApplyBonus(bonusType, bonusAmounnt);
             }
-            else if (detectedColliders[i].CompareTag(Tags.FINISH))
+            else if (detectedColliders[i].CompareTag(Tags.FINISH) && GameManager.instance.IsGameState())
             {
                 Debug.Log("Hit finish line");
                 PlayerPrefs.SetInt(PlayerPrefsTag.LEVEL, PlayerPrefs.GetInt(PlayerPrefsTag.LEVEL) + 1);
-                SceneManager.LoadScene(0);
+                GameManager.instance.SetGameState(GameState.LevelComplete);
+                // SceneManager.LoadScene(0);
             }
         }
     }

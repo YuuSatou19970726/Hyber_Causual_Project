@@ -51,14 +51,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void GameStateChangeCallback(GameState gameState)
-    {
-        if (gameState == GameState.Game)
-            StartMoving();
-        else
-            StopMoving();
-    }
-
     private void StartMoving()
     {
         canMove = true;
@@ -97,6 +89,20 @@ public class PlayerController : MonoBehaviour
             transform.position = position;
 
             // transform.position = clickPlayerPosition + Vector3.right * xScreenDifference;
+        }
+    }
+
+    // Callback
+    private void GameStateChangeCallback(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.Game:
+                StartMoving();
+                break;
+            default:
+                StopMoving();
+                break;
         }
     }
 }
